@@ -13,7 +13,7 @@ exports.handler = async (data) => {
     // Process the decrypted name value, and re-encrypt the original name using the globally available evervault package.
     // Note all Cages have the evervault SDK automatically injected into their global scope.
     return {
-      message: `Hello from a Cage! It seems you have ${data.email.length} letters in your name`,
+      message: `${data.email}`,
       name: await evervault.encrypt(data.email),
     };
   } else {
