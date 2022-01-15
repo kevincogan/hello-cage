@@ -8,12 +8,19 @@
 exports.handler = async (data) => {
   // Check if the data sent into the Cage included the `name` key
   if (data.email && typeof data.email === "string") {
-    console.debug(`A name of length ${data.email.length} has arrived into the Cage.`);
+    
+    function validateEmail(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    }
+    
+    const isValid = validateEmail(data.email);
 
     // Process the decrypted name value, and re-encrypt the original name using the globally available evervault package.
     // Note all Cages have the evervault SDK automatically injected into their global scope.
     return {
-      message: `${data.email}`,
+      message: `${isValid}`,
       name: await evervault.encrypt(data.email),
     };
   } else {
